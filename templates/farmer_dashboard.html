@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+        }
+
+        .registration-section {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 40%;
+            margin-bottom: 20px;
+        }
+
+        .batch-list-section {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 40%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="registration-section">
+            <h2>Register New Batch</h2>
+            <form action="{{ url_for('register_batch') }}" method="post">
+                <label for="product_name">Product Name:</label>
+                <input type="text" id="product_name" name="product_name" required>
+
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"></textarea>
+
+                <label for="certifications">Certifications:</label>
+                <input type="text" id="certifications" name="certifications">
+
+                <label for="quality_checks">Quality Checks:</label>
+                <textarea id="quality_checks" name="quality_checks"></textarea>
+
+                <label for="origin">Origin:</label>
+                <input type="text" id="origin" name="origin">
+
+                <label for="harvest_date">Harvest Date:</label>
+                <input type="date" id="harvest_date" name="harvest_date">
+
+                <label for="images">Images (URLs, separated by commas):</label>
+                <input type="text" id="images" name="images">
+
+                <label for="additional_notes">Additional Notes:</label>
+                <textarea id="additional_notes" name="additional_notes"></textarea>
+
+                <button type="submit">Register Batch</button>
+            </form>
+        </div>
+
+        <div class="batch-list-section">
+            <h2>Registered Batches</h2>
+            <ul>
+                {% for batch in batches %}
+                    <li>
+                        Batch Number: {{ batch.batch_number }}<br>
+                        Product Name: {{ batch.product_name }}<br>
+                        Quantity: {{ batch.quantity }}<br>
+                        NFT: {{ batch.nft }}<br>
+                        Timestamp: {{ batch.timestamp }}<br>
+                        <!-- Display additional information -->
+                        Description: {{ batch.description }}<br>
+                        Certifications: {{ batch.certifications }}<br>
+                        Quality Checks: {{ batch.quality_checks }}<br>
+                        Origin: {{ batch.origin }}<br>
+                        Harvest Date: {{ batch.harvest_date }}<br>
+                        Images: {{ batch.images }}<br>
+                        Additional Notes: {{ batch.additional_notes }}<br>
+                    </li>
+                    <br>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
